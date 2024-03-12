@@ -1,1 +1,93 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <style>
+        #div1 {
+          width: 350px;
+          height: 70px;
+          padding: 10px;
+          border: 1px solid #aaaaaa;
+        }
+    </style>
+    <title>Валерий Зубков - Встреча (из к/ф "Цыган")</title>
+    <script>
+        function allowDrop(ev) {
+        ev.preventDefault();
+        }
 
+        function drag(ev) {
+            ev.dataTransfer.setData("text", ev.target.id);
+        }
+
+        function drop(ev) {
+            ev.preventDefault();
+            var data = ev.dataTransfer.getData("text");
+            ev.target.appendChild(document.getElementById(data));
+        
+        }
+    </script>
+  </head>
+  <body>
+    <iframe width="420" height="236" src="https://www.youtube.com/embed/PKm36JJOC30?autoplay=1&mute=0">Youtube video</iframe>
+
+    <form action="https://www.youtube.com/watch" method="get">
+      Click it:
+      <input type="hidden" name="v" value="dQw4w9WgXcQ">
+      <input type="submit" value="Video?..">
+      <br/><br/>
+    </form>
+    <form action="go_on.txt" method="post">
+        First name:
+        <input type="text" name="username" placeholder="Your name">
+        <br/><br/>
+        Last name:
+        <input type="text" name="lastname" placeholder="Your surname">
+        <br/><br/>
+        Comment:
+        <input type="text" name="comment" placeholder="Your comment">
+        <br/><br/>
+        Review:
+        <input type="text" name="review" placeholder="Your review">
+        <br/><br/>
+        <label for="browser" draggable="true" ondragstart="drag(event)">Choose your fighteR:</label>
+        <input list="warriors" name="WARRIORS" id="warrior" /> 
+        <datalist id="warriors">
+            <option value="Melee" />
+            <option value="Ranger" />
+            <option value="Magician" />
+            <option value="Summoner" />
+            <option value="Thrower" />
+            <option value="Healer" />
+            <option value="Rogue" />
+            <option value="Berserk" />
+            <option value="Thief" />
+            <option value="Knight" />
+            <option value="Druid" />
+            <option value="Soldier" />
+            <option value="Paladin" />
+        </datalist>
+        <input type="submit" value="Submit">
+    </form>
+    <button onclick="getLocation()" >Get location</button>
+    <br/><br/><br/>
+    <div id="div1" ondrop="drop(event)" ondragover="allowDrop(event)"></div>
+    <h3>The label "Choose your fighteR:" is draggable! (but not placeable...)</h3>
+    <p id="demo"></p>
+    <script>
+        const x = document.getElementById("demo");
+        
+        function getLocation() {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(showPosition);
+          } else {
+            x.innerHTML = "Geolocation is not supported by this browser.";
+          }
+        }
+        
+        function showPosition(position) {
+          x.innerHTML = "Latitude: " + position.coords.latitude +
+          "<br>Longitude: " + position.coords.longitude;
+        }
+    </script>
+  </body>
+</html>
